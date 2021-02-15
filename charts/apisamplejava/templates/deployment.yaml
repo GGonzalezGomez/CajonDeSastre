@@ -27,8 +27,6 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-      imagePullSecrets:
-      - name: regcred
         env:
 {{- range $pkey, $pval := .Values.env }}
         - name: {{ $pkey }}
@@ -38,5 +36,7 @@ spec:
         - containerPort: {{ .Values.service.internalPort }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+      imagePullSecrets:
+      - name: regcred2
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
 {{- end }}
